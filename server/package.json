@@ -1,11 +1,20 @@
 {
   "name": "consense-server",
   "version": "1.0.0",
+  "repository": {
+      "type": "git",
+      "url": "https://github.com/Blockchaingers/consense.git"
+  },
   "description": "server providing api for frontend",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.3",
+    "mongodb": "^3.0.5",
+    "mongoose": "^5.0.13"
+  }
 }
