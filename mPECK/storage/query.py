@@ -14,47 +14,40 @@
 
 
 class Query(object):
-	"""docstring for Query"""
+
 	def __init__(self):
 		super(Query, self).__init__()
-		self.indices = [0, 0, 0, 0, 0]
-		self.keywords = [None, None, None, None, None]
+		self.indices = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+		self.keywords = [None, None, None, None, None, None, None, None, None, None, None]
 
-	def set_name(self, value):
-		self.indices[0] = 1
-		self.keywords[0] = value
+
+	def set_keyword(self, index, value):
+		self.indices[index] = 1
+		self.keywords[index] = value
 		return self
 
-	def set_field_type(self, value):
-		self.indices[1] = 1
-		self.keywords[1] = value
+
+	def set_keywords_from_list(self, list_of_values):
+		i = 0
+		for elem in list_of_values:
+			if elem is not None:
+				self.indices[i] = 1
+				self.keywords[i] = elem
+			i = i + 1
 		return self
 
-	def set_date(self, value):
-		self.indices[2] = 1
-		self.keywords[2] = value
-		return self
-
-	def set_time(self, value):
-		self.indices[3] = 1
-		self.keywords[3] = value
-		return self
-
-	def set_amount(self, value):
-		self.indices[4] = 1
-		self.keywords[4] = value
-		return self
 
 	def remove_keyword(self, i):
-		self.indices[i] = 1
+		self.indices[i] = 0
+		self.keywords[i] = None
+
 
 	def generate(self):
 		I = list()
 		W = list()
 
 		for x in range(0,5):
-			if self.indices[x]==1:
+			if self.indices[x] == 1:
 				I.append(x)
 				W.append(self.keywords[x])
-
 		return (I,W)

@@ -6,8 +6,7 @@ from storage.record import Record
 from storage.server import Server
 from storage.query import Query
 from parties.user import User
-from parties.consultant import Consultant
-from parties.client import Client
+from parties.user import User_Type
 import json
 
 def create_users(mpeck, n, names=None, verbose=False):
@@ -20,15 +19,20 @@ def create_users(mpeck, n, names=None, verbose=False):
 	if(n < 1):
 		return users
 	ks = mpeck.keygen(n)
-	users.append(Consultant('researcher_1'))
+
+	# Define a researcher user
+	users.append(User('researcher_1', User_Type.RESEARCHER))
 	users[0].set_own_keys(ks[0])
 	consultant_pub_key = users[0].get_pub_key()
+
+	# Define patient users
 	for i in range(1, n):
 		name = str(i) if names is None else names[i - 1]
-		users.append(Client(name))
+		users.append(User(name, User_Type.PATIENT))
 		users[i].set_own_keys(ks[i])
 		users[i].set_consultant_pub_key(consultant_pub_key)
 	return users
+
 
 def decrypt_results(mpeck, C, sk, include_meta_data):
 	P = list()
@@ -40,6 +44,7 @@ def decrypt_results(mpeck, C, sk, include_meta_data):
 			P.append(mpeck.fromBytes(dec))
 	return P
 
+
 def run_query(mpeck, s, Q, u, include_meta_data=False, verbose=False):
 	TQ = mpeck.trapdoor(u.get_g(), Q, u.get_pr_key())
 	R = s.search(mpeck, u.get_pub_key(), TQ)
@@ -48,6 +53,8 @@ def run_query(mpeck, s, Q, u, include_meta_data=False, verbose=False):
 		print('\n\n\n====================================\nQuery %s ->\n\n%s ->\n\n%s' % (Q, R, decrypted))
 	return decrypted
 
+
+# TODO Serialize data objects and store them in a JSON file
 def store_data(mpeck, s, D, U, i=None, verbose=False):
 	m = mpeck.toBytes(D)
 	PKS = list()

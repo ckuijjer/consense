@@ -16,13 +16,10 @@ class Record(object):
 	def remove_keyword(self, kw):
 		self.keywords = [x for x in self.keywords if x != kw]
 
-	def get_name(self):
-		return self.keywords[0]
+	def get_keyword(self, i):
+		return self.keywords[i]
 
-	def generate(self):
-		return self.keywords
-
-	def to_dict(self):
+	def __dict__(self):
 		return {'User': self.user,
 				'User Type' : self.type,
                 'Keywords': self.keywords}
