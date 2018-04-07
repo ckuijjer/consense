@@ -1,7 +1,7 @@
 pragma solidity ^0.4.21;
 
 /**
- * Consense contract version 0.2.0
+ * Consense contract version 0.2.1
  */
 
 contract Consense {
@@ -41,8 +41,8 @@ contract Consense {
         consents[msg.sender].consentGiven = false;
     }
 
-    function checkConsent() public view returns (bool) {
-        return consents[msg.sender].consentGiven;
+    function checkConsent(address participant) public view returns (bool) {
+        return consents[participant].consentGiven;
     }
 
 }
