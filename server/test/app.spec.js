@@ -23,13 +23,14 @@ describe('Consense Server App', () => {
     });
 
     describe('GET /getAvailableResearchData', () => {
-        it('it should GET { numberOfPeople: 7 } ', (done) => {
+        it('it should GET proper reponse ', (done) => {
             chai.request(server)
                 .get('/getAvailableResearchData')
                 .end((err, res) => {
                     res.should.have.status(200);
-                    res.body.should.be.a('object');
-                    res.body['numberOfPeople'].should.equal(7);
+                    // res.body.should.be.a('object');
+                    // res.body['numberOfPeople'].should.equal(7);
+                    res.body.should.equal('(: ysae saw ti dias ydobon');
                     done();
                 });
         });

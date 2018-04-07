@@ -1,21 +1,20 @@
 const { spawn } = require('child_process');
-const EventEmitter = require('events');
+// const EventEmitter = require('events');
 
-export class PythonService {
-
-    pythonProcess;
-    output;
+class PythonService {
 
     constructor(sourceFileName) {
-        pythonProcess = spawn('python', [sourceFileName]);
-        output = pythonProcess.stdout;
+        this.pythonProcess = spawn('python', [sourceFileName]);
+        this.output = pythonProcess.stdout;
     }
 
     sendMessage(data) {
-        pythonProcess.stdin.write(JSON.stringify(data));
+        this.pythonProcess.stdin.write(JSON.stringify(data));
     }
 
     endProccess() {
-        pythonProcess.stdin.end();
+        this.pythonProcess.stdin.end();
     }
 }
+
+module.exports = PythonService;

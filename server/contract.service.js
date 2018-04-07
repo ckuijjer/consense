@@ -3,11 +3,6 @@ const Tx = require('ethereumjs-tx');
 const ABI = require('../contracts/abi.js');
 const web3 = new Web3(new Web3.providers.HttpProvider("https://rinkeby.infura.io/km4Q8LLtFj8l2MUPJp2K"));
 
-
-
-
-
-
 export class ContractService {
 
     constructor() {
