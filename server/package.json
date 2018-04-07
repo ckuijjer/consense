@@ -6,9 +6,10 @@
     "url": "https://github.com/Blockchaingers/consense.git"
   },
   "description": "server providing api for frontend",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "start": "node app.js"
   },
   "author": "",
   "license": "ISC",
