@@ -75,6 +75,7 @@ class mPECK:
 
 	def trapdoor(self,g, Q, sk):
 		t = self.group.random()
+		print("Query: ", Q)
 		Q1 = g ** t
 		Q2 = 1
 		Q3 = 1
@@ -88,7 +89,8 @@ class mPECK:
 
 	def test(self, ES, TQ, pk):
 		P = 1
-		print(TQ[3])
+		print("TQ[3]:", TQ[3])
+		print("ES[1][2]:",ES[1][2])
 		for I in TQ[3]:
 			print(I)
 			P *= ES[1][2][I]
@@ -122,6 +124,8 @@ class mPECK:
 
 
 	def toBytes(self, m):
+		print("m: ", m)
+		print(self.group)
 		return objectToBytes(m, self.group)
 
 
