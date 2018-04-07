@@ -47,7 +47,7 @@ def decrypt_results(mpeck, C, sk, include_meta_data):
 def run_query(mpeck, s, Q, u, include_meta_data=False, verbose=False):
 	print(u.get_g(), Q, u.get_pr_key())
 	TQ = mpeck.trapdoor(u.get_g(), Q, u.get_pr_key())
-	print(TQ)
+	print("TQ:", TQ)
 	R = s.search(mpeck, u.get_pub_key(), TQ)
 	decrypted = decrypt_results(mpeck, R, u.get_pr_key(), include_meta_data)
 	if verbose:
@@ -64,7 +64,7 @@ def store_data(mpeck, s, D, U, i=None, verbose=False):
 	i = s.store_data(U[-1], C, i)
 	if verbose:
 		print('\n\n\n====================================\nStore (%d) %s ->\n\n%s' % (i, D, C))
-	return Record(keywords=D, user=U[-1], i=i)
+	return Record(kws=D, user=U[-1], i=i)
 
 
 # Receive input from other processes
@@ -82,16 +82,14 @@ if __name__ == '__main__':
 	names = ['user_1','user_2','user_3','user_4','user_5','user_6']
 	users = create_users(mpeck, 6, names)
 
-	#print(users[0].serialize())
-
-	R1 = Record(users[1], ['20', 'dna', 'Groningen'])
-	R2 = Record(users[2], ['25', 'dna', 'Amsterdam'])
-	R3 = Record(users[3], ['25', 'blood', 'Maastricht'])
-	R4 = Record(users[4], ['30', 'blood', 'Maastricht'])
-	R5 = Record(users[5], ['30', 'dna', 'Maastricht'])
+	R1 = Record(users[1], ['age', 'dna', 'location'])
+	R2 = Record(users[2], ['age', 'dna', 'ecg'])
+	R3 = Record(users[3], ['age', 'blood', 'ecg'])
+	R4 = Record(users[4], ['age', 'blood', 'location'])
+	R5 = Record(users[5], ['age', 'dna', 'ct'])
 
 	records = [R1, R2, R3, R4, R5]
-	#print(R.__dict__())
+
 	for elem in records:
 		store_data(mpeck, server, elem.keywords, users)
 

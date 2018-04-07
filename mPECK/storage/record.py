@@ -1,16 +1,22 @@
 
+from DataEnum import Data_Enum
+
+
 class Record(object):
 	
-	def __init__(self,  user, keywords = [], i=None):
+	def __init__(self,  user, kws, i=None):
 		super(Record, self).__init__()
-		self.keywords = keywords
+		
+		self.keywords = [None, None, None, None, None, None, None, None, None, None, None]
+		for k in kws:
+			self.add_keyword(k)
+		
 		self.type = user.type
 		self.user = user
 		self.i = i
 
 	def add_keyword(self, kw):
-		if not any(kw in s for s in self.keywords):
-			self.keywords.append(kw)
+		self.keywords[Data_Enum(kw).value] = kw
 		return self
 
 	def remove_keyword(self, kw):
