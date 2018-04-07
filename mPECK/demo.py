@@ -23,14 +23,13 @@ def create_users(mpeck, n, names=None, verbose=False):
 	# Define a researcher user
 	users.append(User('researcher_1', User_Type.RESEARCHER))
 	users[0].set_own_keys(ks[0])
-	consultant_pub_key = users[0].get_pub_key()
 
 	# Define patient users
 	for i in range(1, n):
 		name = str(i) if names is None else names[i - 1]
 		users.append(User(name, User_Type.PATIENT))
 		users[i].set_own_keys(ks[i])
-		users[i].set_consultant_pub_key(consultant_pub_key)
+		users[i].add_other_key_by_name(users[0].name, users[0].get_pub_key())
 	return users
 
 
@@ -54,7 +53,6 @@ def run_query(mpeck, s, Q, u, include_meta_data=False, verbose=False):
 	return decrypted
 
 
-# TODO Serialize data objects and store them in a JSON file
 def store_data(mpeck, s, D, U, i=None, verbose=False):
 	m = mpeck.toBytes(D)
 	PKS = list()
@@ -64,19 +62,40 @@ def store_data(mpeck, s, D, U, i=None, verbose=False):
 	i = s.store_data(U[-1], C, i)
 	if verbose:
 		print('\n\n\n====================================\nStore (%d) %s ->\n\n%s' % (i, D, C))
-	return Record(keywords=D, user=U[-1], userType = U[-1].type, i=i)
+	return Record(keywords=D, user=U[-1], i=i)
 
+
+# Receive input from other processes
+def load_data(path):
+	return
 
 
 #--------------------------------- MAIN ---------------------------
 
+
 if __name__ == '__main__':
 
 	mpeck = mPECK()
-	s = Server()
+	server = Server()
 	names = ['user_1','user_2','user_3','user_4','user_5','user_6']
 	users = create_users(mpeck, 6, names)
 
-	usr_json = json.dumps(users[0], default=lambda x: x.__dict__, indent=4)
-	print(usr_json)
+	#print(users[0].serialize())
+
+	R1 = Record(users[1], ['20', 'dna', 'Groningen'])
+	R2 = Record(users[2], ['25', 'dna', 'Amsterdam'])
+	R3 = Record(users[3], ['25', 'blood', 'Maastricht'])
+	R4 = Record(users[4], ['30', 'blood', 'Maastricht'])
+	R5 = Record(users[5], ['30', 'dna', 'Maastricht'])
+
+	records = [R1, R2, R3, R4, R5]
+	#print(R.__dict__())
+	for elem in records:
+		store_data(mpeck, server, elem.keywords, users)
+
+	query = Query().set_keyword("dna").generate()
+
+
+
+
 

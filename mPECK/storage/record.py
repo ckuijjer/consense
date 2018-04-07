@@ -1,10 +1,10 @@
 
 class Record(object):
 	
-	def __init__(self,  user, userType, keywords, i=None):
+	def __init__(self,  user, keywords = [], i=None):
 		super(Record, self).__init__()
 		self.keywords = keywords
-		self.type = userType
+		self.type = user.type
 		self.user = user
 		self.i = i
 
@@ -20,9 +20,7 @@ class Record(object):
 		return self.keywords[i]
 
 	def __dict__(self):
-		return {'User': self.user,
-				'User Type' : self.type,
-                'Keywords': self.keywords}
+		return "{user: %s, user_type : %s, keywords : %s}" % (self.user.ID, self.type, self.keywords)
 
 	def __eq__(self, other):
 		return (self.keywords == other.keywords and self.user == other.user and self.type == other.type)

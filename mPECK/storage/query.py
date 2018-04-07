@@ -4,13 +4,41 @@
 # calls as follows:
 #
 #	Query()
-#		.set_name("name_to_be_searched")
-#		.set_field_type(1)
+#		.set_keyword("keyword_to_be_searched")
 #		.generate()
 #
 # This will return a query Q in the format (I, W), where
 # I is the list of indices of queried keywords, and W is
 # the list of queried keywords.
+
+
+from aenum import Enum
+
+class Query_Enum(Enum):
+
+	_init_ = 'value string'
+
+	NAME = 1, 'name'
+	AGE = 2, 'age'
+	LOCATION = 3, 'location'
+	GENER = 4, 'gender'
+	HEIGHT = 5, 'height'
+	WEIGHT = 6, 'weight'
+	ECG = 7, 'ecg'
+	BLOOD = 8, 'blood'
+	DNA = 9, 'dna'
+	EEG = 10, 'eeg'
+	CT = 11, 'ct'
+
+	def __str__(self):
+		return self.string
+
+	@classmethod
+	def _missing_value_(cls, value):
+		for member in cls:
+			if member.string == value:
+				return member
+
 
 
 class Query(object):
@@ -21,9 +49,10 @@ class Query(object):
 		self.keywords = [None, None, None, None, None, None, None, None, None, None, None]
 
 
-	def set_keyword(self, index, value):
-		self.indices[index] = 1
-		self.keywords[index] = value
+	def set_keyword(self, value):
+		print(Query_Enum(value).value)
+		self.indices[Query_Enum(value).value] = 1
+		self.keywords[Query_Enum(value).value] = value
 		return self
 
 

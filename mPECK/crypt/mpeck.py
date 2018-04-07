@@ -35,7 +35,7 @@ class mPECK:
 
 
 	def keygen(self, n, g=None):
-		if(g==None):
+		if(g == None):
 			g = self.g_gen()
 		keyPair_list = list()
 		for a in range(n):
@@ -111,7 +111,7 @@ class mPECK:
 
 
 	def hash2(self, m, type):
-		return self.group.hash(self.group.hash(m, type), type) # TODO does this count as a second (different) hash function that maps to G1 ?
+		return self.group.hash(self.group.hash(m, type), type) # does this count as a second (different) hash function that maps to G1?
 
 
 	def bytes_xor(self, a, b):
