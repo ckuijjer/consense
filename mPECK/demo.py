@@ -45,7 +45,9 @@ def decrypt_results(mpeck, C, sk, include_meta_data):
 
 
 def run_query(mpeck, s, Q, u, include_meta_data=False, verbose=False):
+	print(u.get_g(), Q, u.get_pr_key())
 	TQ = mpeck.trapdoor(u.get_g(), Q, u.get_pr_key())
+	print(TQ)
 	R = s.search(mpeck, u.get_pub_key(), TQ)
 	decrypted = decrypt_results(mpeck, R, u.get_pr_key(), include_meta_data)
 	if verbose:
@@ -94,7 +96,8 @@ if __name__ == '__main__':
 		store_data(mpeck, server, elem.keywords, users)
 
 	query = Query().set_keyword("dna").generate()
-
+	result = run_query(mpeck, server, query, users[1])
+	print(result)
 
 
 

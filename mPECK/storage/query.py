@@ -50,7 +50,6 @@ class Query(object):
 
 
 	def set_keyword(self, value):
-		print(Query_Enum(value).value)
 		self.indices[Query_Enum(value).value] = 1
 		self.keywords[Query_Enum(value).value] = value
 		return self
@@ -75,7 +74,7 @@ class Query(object):
 		I = list()
 		W = list()
 
-		for x in range(0,5):
+		for x in range(0,len(self.indices)):
 			if self.indices[x] == 1:
 				I.append(x)
 				W.append(self.keywords[x])

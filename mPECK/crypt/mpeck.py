@@ -88,9 +88,12 @@ class mPECK:
 
 	def test(self, ES, TQ, pk):
 		P = 1
+		print(TQ[3])
 		for I in TQ[3]:
+			print(I)
 			P *= ES[1][2][I]
 
+		print(TQ[0], P)
 		lhs = pair(TQ[0], P)
 		rhs = pair(ES[1][0], TQ[1])
 		for B in ES[1][1]: 
