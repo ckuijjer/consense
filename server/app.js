@@ -15,9 +15,9 @@ app.get('/getAvailableResearchData', async (req, res) => {
     const payload = {
         mySecretMessage: 'nobody said it was easy :('
     };
-    // const responseFromPythonProcess = await getDataFromPythonProcess(payload);
-    res.json({ numberOfPeople: 7 });
-    // res.json(responseFromPythonProcess);
+    const responseFromPythonProcess = await getDataFromPythonProcess(payload);
+    // res.json({ numberOfPeople: 7 });
+    res.json(responseFromPythonProcess);
 });
 
 /**
