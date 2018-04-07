@@ -1,17 +1,29 @@
 const express = require('express');
 const cors = require('cors');
+
+import { PythonCommunicator } from "./python-communicator";
+
 const app = express();
 
 app.use(cors());
 
-function getAvailableResearchData(req, res) {
+/**
+ * route to get the available data for the researcher from the database
+ */
+app.get('/getAvailableResearchData', (req, res) => {
+    const pc = new PythonCommunicator('test.py');
+    pc.output.on('data', function (data) {
+        // handle data
+    });
+    pc.output.on('end', function () {
+        // handle end
+    });
     res.json({ numberOfPeople: 7 });
-}
-
-app.get('/getAvailableResearchData', (req, res) => getAvailableResearchData(req, res));
+});
 
 app.listen(3000, () => console.log('Example app listening on port 3000!'));
 
 if (process.send) {
     process.send('listening');
 }
+
