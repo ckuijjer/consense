@@ -18,7 +18,7 @@ def main():
     reverted_string = lines["mySecretMessage"][::-1]
 
     #return the sum to the output stream
-    print reverted_string
+    sys.stdout.write(reverted_string)
 
 #start process
 if __name__ == '__main__':

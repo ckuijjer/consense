@@ -23,7 +23,7 @@ describe('Consense Server App', () => {
     });
 
     describe('GET /getAvailableResearchData', () => {
-        it('it should GET proper reponse ', (done) => {
+        it('it should GET proper response ', (done) => {
             chai.request(server)
                 .get('/getAvailableResearchData')
                 .end((err, res) => {

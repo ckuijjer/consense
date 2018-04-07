@@ -28,13 +28,17 @@ function getDataFromPythonProcess(payload) {
     return new Promise((resolve, reject) => {
         const pc = new PythonService('../BackendTest.py');
         pc.sendMessage(payload);
-        const pythonResponse = '';
+        pc.endInput();
+        let pythonResponse = 'no data received';
+
         pc.output.on('data', function (data) {
             // handle data
-            pythonResponse = data;
+            console.log('incoming data:', data.toString());
+            pythonResponse = data.toString();
         });
         pc.output.on('end', function () {
             // handle end of process execution
+            console.log('process ended')
             resolve(pythonResponse);
         });
     });
