@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 
-import { PythonCommunicator } from "./python-communicator";
+import { PythonService } from "./python.service";
 
 const app = express();
 
@@ -11,7 +11,7 @@ app.use(cors());
  * route to get the available data for the researcher from the database
  */
 app.get('/getAvailableResearchData', (req, res) => {
-    const pc = new PythonCommunicator('test.py');
+    const pc = new PythonService('test.py');
     pc.output.on('data', function (data) {
         // handle data
     });

@@ -1,7 +1,7 @@
 const { spawn } = require('child_process');
 const EventEmitter = require('events');
 
-export class PythonCommunicator {
+export class PythonService {
 
     pythonProcess;
     output;
