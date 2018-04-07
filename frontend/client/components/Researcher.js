@@ -4,8 +4,8 @@ export default class Reservation extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			isGoing: true,
-			numberOfGuests: 2,
+			sex: 'male',
+			age: 17,
 			serverReply: 'no server reply',
 			numberOfConsents: 0
 		};
@@ -16,7 +16,7 @@ export default class Reservation extends React.Component {
 	fetchDataFromTheServer(sex, age) {
 		return new Promise((resolve, reject) => {
 			fetch(`http://localhost:3000/getAvailableResearchData/sex/${sex}/age/${age}`)
-				.then((resp) => resp.text() )// Transform the data into json
+				.then((resp) => resp.text() )
 				.then(function (data) {
 					console.log(data);
 					resolve(data);
@@ -27,10 +27,13 @@ export default class Reservation extends React.Component {
 
 	handleInputChange(event) {
 		const target = event.target;
-		const value = target.type === 'checkbox' ? target.checked : target.value;
+		const value = target.value;
 		const name = target.name;
+		this.setState({
+			[name]: value
+		});
 
-		this.fetchDataFromTheServer('male', 42).then((availableResearchData) => {
+		this.fetchDataFromTheServer(this.state.sex, this.state.age).then((availableResearchData) => {
 			this.setState({
 				serverReply: availableResearchData
 			});
@@ -40,23 +43,23 @@ export default class Reservation extends React.Component {
 	render() {
 		return (
 			<form>
-				<label>
-					Is going:
-				<input
-						name="isGoing"
-						type="checkbox"
-						checked={this.state.isGoing}
-						onChange={this.handleInputChange} />
-				</label>
+				<p>Change the parameters to check how many consents have been provided:</p>
+
+				<label>Sex:</label>
+				<select value={this.state.sex} onChange={this.handleInputChange}>
+            		<option value="male">Male</option>
+            		<option value="female">Female</option>
+				</select>
+
 				<br />
-				<label>
-					Number of guests:
+				
+				<label>Age:</label>
 				<input
-						name="numberOfGuests"
+						name="age"
 						type="number"
-						value={this.state.numberOfGuests}
+						value={this.state.age}
 						onChange={this.handleInputChange} />
-				</label>
+				<br />
 
 				<p>server response: {this.state.serverReply}</p>
 			</form>
