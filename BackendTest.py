@@ -2,15 +2,20 @@ import sys, json
 
 #Read data from stdin
 def read_in():
-    lines = sys.stdin.readlines()
+    lines = sys.stdin.read()
     #Since our input would only be having one line, parse our JSON data from that
-    return json.loads(lines[0])
+    # print lines
+    # print json.loads(lines)
+    return json.loads(lines)
+    # return lines
 
 def main():
     #get our data as an array from read_in()
     lines = read_in()
 
-    reverted_string = lines[::-1]
+    # print(lines["mySecretMessage"])
+
+    reverted_string = lines["mySecretMessage"][::-1]
 
     #return the sum to the output stream
     print reverted_string
