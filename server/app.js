@@ -26,14 +26,12 @@ async function makeRequestForResearchData(req, res) {
     const payload = {
         // server-side encryption secret key
         mySecretMessage: 'nobody said it was easy :(',
-        sex: req.params.sex,
+        gender: req.params.sex,
         age: req.params.age,
     };
     const responseFromPythonProcess = await getDataFromPythonProcess(payload);
     res.json(responseFromPythonProcess);
 }
-
-
 
 /**
  * gets data from the python process by sending proper payload

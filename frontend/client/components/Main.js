@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
-
+import Researcher from './Researcher';
 
 const Main = React.createClass({
 	render() {
