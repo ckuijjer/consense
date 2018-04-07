@@ -1,28 +1,40 @@
 const express = require('express');
 const cors = require('cors');
+const bodyParser = require('body-parser');
 
 const PythonService = require('./python.service');
 
 const app = express();
 
 app.use(cors());
+app.use(bodyParser.json());
+
+
+// just a test route to check if server is working properly
+app.get('/getTestResponseFromServer', (req, res) => {
+    res.json('ok');
+});
+
+// request for available research data based on provided parameters
+app.get('/getAvailableResearchData' /*/sex/:sex/age:age/'*/, makeRequestForResearchData);
 
 /**
- * route to get the available data for the researcher from the crypto database
- * TODO: implement parameters provided by request
+ * @param sex
+ * @param age
  */
-app.get('/getAvailableResearchData', async (req, res) => {
+async function makeRequestForResearchData(req, res) {
     const payload = {
         mySecretMessage: 'nobody said it was easy :('
     };
     const responseFromPythonProcess = await getDataFromPythonProcess(payload);
-    // res.json({ numberOfPeople: 7 });
     res.json(responseFromPythonProcess);
-});
+}
+
+
 
 /**
  * gets data from the python process by sending proper payload
- * @returns Promise 
+ * @returns Promise that resolves with response from python app
  */
 function getDataFromPythonProcess(payload) {
     return new Promise((resolve, reject) => {
