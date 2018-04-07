@@ -16,15 +16,18 @@ app.get('/getTestResponseFromServer', (req, res) => {
 });
 
 // request for available research data based on provided parameters
-app.get('/getAvailableResearchData' /*/sex/:sex/age:age/'*/, makeRequestForResearchData);
+app.get('/getAvailableResearchData/sex/:sex/age/:age/', makeRequestForResearchData);
 
 /**
- * @param sex
- * @param age
+ * @param req.params.sex
+ * @param req.params.age
  */
 async function makeRequestForResearchData(req, res) {
     const payload = {
-        mySecretMessage: 'nobody said it was easy :('
+        // server-side encryption secret key
+        mySecretMessage: 'nobody said it was easy :(',
+        sex: req.params.sex,
+        age: req.params.age,
     };
     const responseFromPythonProcess = await getDataFromPythonProcess(payload);
     res.json(responseFromPythonProcess);

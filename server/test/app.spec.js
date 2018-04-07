@@ -37,7 +37,7 @@ describe('Consense Server App', () => {
     describe('GET /getAvailableResearchData', () => {
         it('it should GET proper response ', (done) => {
             chai.request(server)
-                .get('/getAvailableResearchData')
+                .get('/getAvailableResearchData/sex/male/age/42')
                 .end((err, res) => {
                     res.should.have.status(200);
                     // res.body.should.be.a('object');
