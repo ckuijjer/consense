@@ -1,5 +1,8 @@
 const express = require('express');
+const cors = require('cors');
 const app = express();
+
+app.use(cors());
 
 function getAvailableResearchData(req, res) {
     res.json({ numberOfPeople: 7 });
