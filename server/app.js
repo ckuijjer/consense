@@ -23,17 +23,15 @@ app.get('/getAvailableResearchData/sex/:sex/age/:age/', makeRequestForResearchDa
  * @param req.params.age
  */
 async function makeRequestForResearchData(req, res) {
+    console.log(req.params);
     const payload = {
-        // server-side encryption secret key
-        mySecretMessage: 'nobody said it was easy :(',
-        sex: req.params.sex,
+        // mySecretMessage: 'nobody said it was easy :(',
+        // sex: req.params.sex,
         age: req.params.age,
     };
     const responseFromPythonProcess = await getDataFromPythonProcess(payload);
     res.json(responseFromPythonProcess);
 }
-
-
 
 /**
  * gets data from the python process by sending proper payload
@@ -41,7 +39,7 @@ async function makeRequestForResearchData(req, res) {
  */
 function getDataFromPythonProcess(payload) {
     return new Promise((resolve, reject) => {
-        const pc = new PythonService('../BackendTest.py');
+        const pc = new PythonService('../crypto.mock.py');
         pc.sendMessage(payload);
         pc.endInput();
         let pythonResponse = 'no data received';
