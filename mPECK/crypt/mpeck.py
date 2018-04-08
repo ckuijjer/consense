@@ -115,10 +115,7 @@ class mPECK:
 
 
 	def bytes_xor(self, a, b):
-		# return bytes(x ^ y for x, y in zip(a, b))
-		#return [ord(x) ^ ord(y) for x, y in zip(a, b)]
 		return ''.join(chr(ord(x) ^ ord(y)) for x,y in zip(a,b))
-#		return [bytes(x).encode() ^ bytes(y).encode() for x, y in zip(a, b)]
 
 
 	def toBytes(self, m):
