@@ -37,12 +37,12 @@ describe('Consense Server App', () => {
     describe('GET /getAvailableResearchData', () => {
         it('it should GET proper response ', (done) => {
             chai.request(server)
-                .get('/getAvailableResearchData/sex/female/age/30')
+                .get('/getAvailableResearchData/sex/female/age/18')
                 .end((err, res) => {
                     res.should.have.status(200);
                     // res.body.should.be.a('object');
                     // res.body['numberOfPeople'].should.equal(7);
-                    res.body.should.equal('9001');
+                    res.body.should.equal('1500');
                     done();
                 });
         });

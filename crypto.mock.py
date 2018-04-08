@@ -16,10 +16,11 @@ def main():
     # print(lines["mySecretMessage"])
 
     # reverted_string = lines["mySecretMessage"][::-1]
-    # output = 0
+    
+    output = 0
 
-    if lines["age"] == 18:
-       output = 9001
+    if int(lines["age"]) == 18:
+       output = 1500
     else:    
        output = 1
 
