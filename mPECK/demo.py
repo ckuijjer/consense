@@ -35,7 +35,6 @@ def decrypt_results(mpeck, C, sk):
 	P = list()
 	for u, i, c in C:
 		dec = mpeck.m_dec(sk, c[0], c[1], c[2])
-		print(dec)
 		P.append(mpeck.fromBytes(dec))
 	return P
 

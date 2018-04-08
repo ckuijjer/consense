@@ -107,7 +107,6 @@ class mPECK:
 	def m_dec(self, sk, A, B, E):
 		X = objectToBytes(self.group.hash(pair(A, B) ** (1/sk), G1), self.group)
 		xor = self.bytes_xor(E, X)
-		print(xor)
 		return xor #if user is legitimate, this will be equal to m
 
 
@@ -116,7 +115,10 @@ class mPECK:
 
 
 	def bytes_xor(self, a, b):
-		return bytes(x ^ y for x, y in zip(a, b))
+		# return bytes(x ^ y for x, y in zip(a, b))
+		#return [ord(x) ^ ord(y) for x, y in zip(a, b)]
+		return ''.join(chr(ord(x) ^ ord(y)) for x,y in zip(a,b))
+#		return [bytes(x).encode() ^ bytes(y).encode() for x, y in zip(a, b)]
 
 
 	def toBytes(self, m):

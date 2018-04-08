@@ -55,6 +55,17 @@ export default class Reservation extends React.Component {
 						<p>Change the parameters to check how many consents have been provided:</p>
 
 						<div className="form-item">
+							<FormGroup>
+								<ControlLabel className="form-label">Sex:</ControlLabel>
+								<FormControl componentClass="select" value={this.state.sex} onChange={this.handleInputChange}>
+									<option value="male">Male</option>
+									<option value="female">Female</option>
+								</FormControl>
+							</FormGroup>
+
+						</div>
+
+						<div className="form-item">
 							<ControlLabel className="form-label">Sex:</ControlLabel>
 							<select value={this.state.sex} onChange={this.handleInputChange}>
 								<option value="male">Male</option>
