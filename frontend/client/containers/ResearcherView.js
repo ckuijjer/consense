@@ -42,6 +42,8 @@ export default class Reservation extends React.Component {
 
 	render() {
 		return (
+			<div>
+			<h2>This is this researcher view</h2>
 			<form>
 				<p>Change the parameters to check how many consents have been provided:</p>
 
@@ -63,13 +65,7 @@ export default class Reservation extends React.Component {
 
 				<p>server response: {this.state.serverReply}</p>
 			</form>
+			</div>
 		);
 	}
 }
-
-/*
-ReactDOM.render(
-	<Reservation />,
-	document.getElementById('root')
-);
-*/

@@ -7,10 +7,11 @@ import { render } from 'react-dom';
 import css from './styles/style.styl';
 
 //Import Components
-import App from './components/App';
-import Single from './components/Single';
-import PhotoGrid from './components/PhotoGrid';
-import Researcher from './components/Researcher';
+import App from './containers/App';
+import Single from './containers/Single';
+import Welcome from './containers/Welcome';
+import ParticipantView from './containers/ParticipantView';
+import ResearcherView from './containers/ResearcherView';
 
 
 //Import react router deps
@@ -24,8 +25,10 @@ const router = (
 	<Provider store={store}>
 		<Router history={history}>
 			<Route path="/" component={App}>
-				<IndexRoute component={PhotoGrid}></IndexRoute>
-				<Route path="/researcher" component={Researcher}></Route>
+				<IndexRoute component={Welcome}></IndexRoute>
+				<Route path="/researcher" component={ResearcherView}></Route>
+				<Route path="/participant" component={ParticipantView}></Route>
+
 			</Route>
 		</Router>
 	</Provider>	
