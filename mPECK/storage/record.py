@@ -7,16 +7,17 @@ class Record(object):
 	def __init__(self,  user, kws, i=None):
 		super(Record, self).__init__()
 		
-		self.keywords = [None, None, None, None, None, None, None, None, None, None, None]
+		self.keywords = ["", "", "", "", "", "", "", "", "", "", ""]
 		for k in kws:
 			self.add_keyword(k)
-		
+	
 		self.type = user.type
 		self.user = user
 		self.i = i
 
 	def add_keyword(self, kw):
-		self.keywords[Data_Enum(kw).value] = kw
+		if kw is not "":
+			self.keywords[Data_Enum(kw).value] = kw
 		return self
 
 	def remove_keyword(self, kw):

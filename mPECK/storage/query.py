@@ -1,15 +1,4 @@
-# Class to simplify query generation. Insert keywords with
-# the set_...([keyword]) functions and generate query Q with 
-# the generate() function. Can be utilised with consecutive 
-# calls as follows:
-#
-#	Query()
-#		.set_keyword("keyword_to_be_searched")
-#		.generate()
-#
-# This will return a query Q in the format (I, W), where
-# I is the list of indices of queried keywords, and W is
-# the list of queried keywords.
+
 
 from DataEnum import Data_Enum
 
@@ -46,7 +35,7 @@ class Query(object):
 		I = list()
 		W = list()
 
-		for x in range(0,len(self.indices)):
+		for x in range(0, len(self.indices)):
 			if self.indices[x] == 1:
 				I.append(x)
 				W.append(self.keywords[x])

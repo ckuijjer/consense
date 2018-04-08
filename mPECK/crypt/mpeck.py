@@ -27,7 +27,7 @@
 
 from charm.toolbox.pairinggroup import PairingGroup,G1,pair
 from charm.core.engine.util import objectToBytes,bytesToObject
-
+import base64
 
 class mPECK:
 	def __init__(self):
@@ -75,7 +75,6 @@ class mPECK:
 
 	def trapdoor(self,g, Q, sk):
 		t = self.group.random()
-		print("Query: ", Q)
 		Q1 = g ** t
 		Q2 = 1
 		Q3 = 1
@@ -89,13 +88,10 @@ class mPECK:
 
 	def test(self, ES, TQ, pk):
 		P = 1
-		print("TQ[3]:", TQ[3])
-		print("ES[1][2]:",ES[1][2])
+		
 		for I in TQ[3]:
-			print(I)
 			P *= ES[1][2][I]
 
-		print(TQ[0], P)
 		lhs = pair(TQ[0], P)
 		rhs = pair(ES[1][0], TQ[1])
 		for B in ES[1][1]: 
@@ -124,10 +120,9 @@ class mPECK:
 
 
 	def toBytes(self, m):
-		print("m: ", m)
-		print(self.group)
 		return objectToBytes(m, self.group)
 
 
 	def fromBytes(self, m):
-		return bytesToObject(m, self.group)
+		return bytesToObject(m.ljust(2, b"\x3d"), self.group)
+

@@ -9,9 +9,7 @@ from parties.user import User
 from parties.user import User_Type
 import json
 
-def create_users(mpeck, n, names=None, verbose=False):
-	if verbose:
-		print('Creating %d users and generating keys...' % n)
+def create_users(mpeck, n, names=None):
 	if names is not None:
 		assert len(names) == n
 	
@@ -33,43 +31,31 @@ def create_users(mpeck, n, names=None, verbose=False):
 	return users
 
 
-def decrypt_results(mpeck, C, sk, include_meta_data):
+def decrypt_results(mpeck, C, sk):
 	P = list()
 	for u, i, c in C:
 		dec = mpeck.m_dec(sk, c[0], c[1], c[2])
-		if include_meta_data:
-			P.append((u, i, mpeck.fromBytes(dec)))
-		else:
-			P.append(mpeck.fromBytes(dec))
+		print(dec)
+		P.append(mpeck.fromBytes(dec))
 	return P
 
 
-def run_query(mpeck, s, Q, u, include_meta_data=False, verbose=False):
-	print(u.get_g(), Q, u.get_pr_key())
+def run_query(mpeck, s, Q, u):
 	TQ = mpeck.trapdoor(u.get_g(), Q, u.get_pr_key())
-	print("TQ:", TQ)
 	R = s.search(mpeck, u.get_pub_key(), TQ)
-	decrypted = decrypt_results(mpeck, R, u.get_pr_key(), include_meta_data)
-	if verbose:
-		print('\n\n\n====================================\nQuery %s ->\n\n%s ->\n\n%s' % (Q, R, decrypted))
+	decrypted = decrypt_results(mpeck, R, u.get_pr_key())
 	return decrypted
 
 
-def store_data(mpeck, s, D, U, i=None, verbose=False):
+def store_data(mpeck, s, D, U, i=None):
 	m = mpeck.toBytes(D)
 	PKS = list()
 	for u in U:
 		PKS.append(u.get_pub_key())
 	C = mpeck.m_peck(U[0].get_g(), m, D, PKS)
 	i = s.store_data(U[-1], C, i)
-	if verbose:
-		print('\n\n\n====================================\nStore (%d) %s ->\n\n%s' % (i, D, C))
 	return Record(kws=D, user=U[-1], i=i)
 
-
-# Receive input from other processes
-def load_data(path):
-	return
 
 
 #--------------------------------- MAIN ---------------------------
@@ -87,16 +73,16 @@ if __name__ == '__main__':
 	R3 = Record(users[3], ['age', 'blood', 'ecg'])
 	R4 = Record(users[4], ['age', 'blood', 'location'])
 	R5 = Record(users[5], ['age', 'dna', 'ct'])
+	# R6 = Record(users[1], ['name', 'age', 'location','gender','height','weight','ecg','blood','dna','eeg','ct'])
 
 	records = [R1, R2, R3, R4, R5]
-
+	#records = [R6]
+	
+	i = 1
 	for elem in records:
-		store_data(mpeck, server, elem.keywords, users)
+		store_data(mpeck, server, elem.keywords, [users[0], users[i]])
+		i = i + 1
 
 	query = Query().set_keyword("dna").generate()
-	result = run_query(mpeck, server, query, users[1])
+	result = run_query(mpeck, server, query, users[0])
 	print(result)
-
-
-
-
