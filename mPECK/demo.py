@@ -31,7 +31,8 @@ def create_users(mpeck, n, names=None):
 	return users
 
 
-def decrypt_results(mpeck, C, sk):
+def decrypt_results(mpeck, X):
+	C, sk = X
 	P = list()
 	for u, i, c in C:
 		dec = mpeck.m_dec(sk, c[0], c[1], c[2])
@@ -39,19 +40,21 @@ def decrypt_results(mpeck, C, sk):
 	return P
 
 
-def run_query(mpeck, s, Q, u):
-	TQ = mpeck.trapdoor(u.get_g(), Q, u.get_pr_key())
+def run_query(mpeck, X):
+	s, Q, u = X
+	TQ = mpeck.trapdoor((u.get_g(), Q, u.get_pr_key()))
 	R = s.search(mpeck, u.get_pub_key(), TQ)
-	decrypted = decrypt_results(mpeck, R, u.get_pr_key())
+	decrypted = decrypt_results(mpeck, (R, u.get_pr_key()))
 	return decrypted
 
 
-def store_data(mpeck, s, D, U, i=None):
+def store_data(mpeck, X, i=None):
+	s, D, U, = X
 	m = mpeck.toBytes(D)
 	PKS = list()
 	for u in U:
 		PKS.append(u.get_pub_key())
-	C = mpeck.m_peck(U[0].get_g(), m, D, PKS)
+	C = mpeck.m_peck((U[0].get_g(), m, D, PKS))
 	i = s.store_data(U[-1], C, i)
 	return Record(kws=D, user=U[-1], i=i)
 
@@ -72,16 +75,14 @@ if __name__ == '__main__':
 	R3 = Record(users[3], ['age', 'blood', 'ecg'])
 	R4 = Record(users[4], ['age', 'blood', 'location'])
 	R5 = Record(users[5], ['age', 'dna', 'ct'])
-	# R6 = Record(users[1], ['name', 'age', 'location','gender','height','weight','ecg','blood','dna','eeg','ct'])
-
+	
 	records = [R1, R2, R3, R4, R5]
-	#records = [R6]
 	
 	i = 1
 	for elem in records:
-		store_data(mpeck, server, elem.keywords, [users[0], users[i]])
+		store_data(mpeck, (server, elem.keywords, [users[0], users[i]]))
 		i = i + 1
 
 	query = Query().set_keyword("dna").generate()
-	result = run_query(mpeck, server, query, users[0])
+	result = run_query(mpeck,( server, query, users[0]))
 	print(result)

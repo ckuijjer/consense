@@ -33,7 +33,7 @@ class Server(object):
 	def search(self, mpeck, pk, TQ):
 		matches = list()
 		for i, S in enumerate(self.data):
-			res = mpeck.test(S, TQ, pk)
+			res = mpeck.test((S, TQ, pk))
 			if res != None:
 				matches.append((self.users[i], self.ids[i], res))
 		return matches

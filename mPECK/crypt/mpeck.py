@@ -56,7 +56,8 @@ class mPECK:
 		return self.group.random(G1)
 
 
-	def m_peck(self, g, m, W, pks):
+	def m_peck(self, X):
+		g, m, W, pks = X
 		s = self.group.random()
 		r = self.group.random()
 		E = self.m_enc(g, m, pks, r, s)
@@ -73,7 +74,8 @@ class mPECK:
 		return (E,(A,B,C))
 
 
-	def trapdoor(self,g, Q, sk):
+	def trapdoor(self,X):
+		g, Q, sk = X
 		t = self.group.random()
 		Q1 = g ** t
 		Q2 = 1
@@ -86,7 +88,8 @@ class mPECK:
 		return (Q1,Q2,Q3,Q[0])
 
 
-	def test(self, ES, TQ, pk):
+	def test(self,X):
+		ES, TQ, pk = X
 		P = 1
 		
 		for I in TQ[3]:
