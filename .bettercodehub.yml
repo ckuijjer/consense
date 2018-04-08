@@ -1,0 +1,4 @@
+exclude:
+- .*/config\.js
+- .*/webpack.config.prod.js
+- .*/webpack.config.dev.js

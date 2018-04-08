@@ -1,5 +1,4 @@
 const { spawn } = require('child_process');
-// const EventEmitter = require('events');
 
 class PythonService {
 
@@ -11,7 +10,6 @@ class PythonService {
                 console.error('exit code:', code);
             }
         });
-        // this.pythonProcess.stderr.on()
     }
 
     sendMessage(data) {
