@@ -26,7 +26,7 @@ async function makeRequestForResearchData(req, res) {
     console.log(req.params);
     const payload = {
         // mySecretMessage: 'nobody said it was easy :(',
-        sex: req.params.sex,
+        // sex: req.params.sex,
         age: req.params.age,
     };
     const responseFromPythonProcess = await getDataFromPythonProcess(payload);
@@ -39,7 +39,7 @@ async function makeRequestForResearchData(req, res) {
  */
 function getDataFromPythonProcess(payload) {
     return new Promise((resolve, reject) => {
-        const pc = new PythonService('../BackendTest.py');
+        const pc = new PythonService('../crypto.mock.py');
         pc.sendMessage(payload);
         pc.endInput();
         let pythonResponse = 'no data received';
