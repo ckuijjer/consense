@@ -33,8 +33,6 @@ class Server(object):
 	def search(self, mpeck, pk, TQ):
 		matches = list()
 		for i, S in enumerate(self.data):
-			print("Cipher data length: \t", len(S))
-			print("Cipher data: \n",len(S[1][2]))
 			res = mpeck.test(S, TQ, pk)
 			if res != None:
 				matches.append((self.users[i], self.ids[i], res))
