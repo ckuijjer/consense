@@ -17,7 +17,7 @@ export default class Reservation extends React.Component {
 
 	fetchDataFromTheServer(sex, age) {
 		return new Promise((resolve, reject) => {
-			fetch(`http://localhost:3000/getAvailableResearchData/sex/${sex}/age/${age}`)
+			fetch('http://localhost:3000/getAvailableResearchData/sex/' + sex + '/age/' + age)
 				.then((resp) => resp.text())
 				.then(function (data) {
 					console.log(data);
