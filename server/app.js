@@ -23,7 +23,6 @@ app.get('/getAvailableResearchData/sex/:sex/age/:age/', makeRequestForResearchDa
  * @param req.params.age
  */
 async function makeRequestForResearchData(req, res) {
-    console.log(req.params);
     const payload = {
         // mySecretMessage: 'nobody said it was easy :(',
         // sex: req.params.sex,
