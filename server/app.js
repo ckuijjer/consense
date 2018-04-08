@@ -23,10 +23,10 @@ app.get('/getAvailableResearchData/sex/:sex/age/:age/', makeRequestForResearchDa
  * @param req.params.age
  */
 async function makeRequestForResearchData(req, res) {
+    console.log(req.params);
     const payload = {
-        // server-side encryption secret key
-        mySecretMessage: 'nobody said it was easy :(',
-        gender: req.params.sex,
+        // mySecretMessage: 'nobody said it was easy :(',
+        sex: req.params.sex,
         age: req.params.age,
     };
     const responseFromPythonProcess = await getDataFromPythonProcess(payload);

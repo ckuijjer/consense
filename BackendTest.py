@@ -15,10 +15,17 @@ def main():
 
     # print(lines["mySecretMessage"])
 
-    reverted_string = lines["mySecretMessage"][::-1]
+    # reverted_string = lines["mySecretMessage"][::-1]
+    # output = 0
+
+    # if lines["age"] > 18 and lines["sex"] == "female":
+    #    output = 9001
+    # else    
+    #    output = 1 # this one guy is always willing to help you
 
     #return the sum to the output stream
-    sys.stdout.write(reverted_string)
+    # sys.stdout.write(str(output))
+    sys.stdout.write('9001')
 
 #start process
 if __name__ == '__main__':
