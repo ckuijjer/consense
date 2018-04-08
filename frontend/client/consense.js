@@ -7,11 +7,11 @@ import { render } from 'react-dom';
 import css from './styles/style.styl';
 
 //Import Components
-import App from './components/App';
-import Single from './components/Single';
-import Welcome from './components/Welcome';
-import ParticipantView from './components/ParticipantView';
-import ResearcherView from './components/ResearcherView';
+import App from './containers/App';
+import Single from './containers/Single';
+import Welcome from './containers/Welcome';
+import ParticipantView from './containers/ParticipantView';
+import ResearcherView from './containers/ResearcherView';
 
 
 //Import react router deps

@@ -7,7 +7,7 @@ const Welcome = React.createClass({
 	render() {
 		return (
 			<div>
-				<p>This is the welcome page</p>
+				<h1>Welcome</h1>
 				<Link className="button" to="/researcher">I'm a researcher</Link>
 				<Link className="button" to="/participant">I'm a participant</Link>
 			</div>
