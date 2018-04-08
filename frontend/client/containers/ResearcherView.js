@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { FormGroup, ControlLabel, FormControl, Radio } from 'react-bootstrap';
 
 export default class Reservation extends React.Component {
-	constructor(props) {
-		super(props);
+	constructor(props, context) {
+		super(props, context);
 		this.state = {
 			sex: 'male',
 			age: 17,
@@ -50,27 +51,32 @@ export default class Reservation extends React.Component {
 			<div>
 				<h2>This is this researcher view</h2>
 				<div>
-					<p>Change the parameters to check how many consents have been provided:</p>
+					<FormGroup>
+						<p>Change the parameters to check how many consents have been provided:</p>
 
-					<label>Sex:</label>
-					<select value={this.state.sex} onChange={this.handleInputChange}>
-						<option value="male">Male</option>
-						<option value="female">Female</option>
-					</select>
+						<div className="form-item">
+							<ControlLabel className="form-label">Sex:</ControlLabel>
+							<select value={this.state.sex} onChange={this.handleInputChange}>
+								<option value="male">Male</option>
+								<option value="female">Female</option>
+							</select>
+						</div>
 
-					<br />
+						<br />
+						<div className="form-item">
+							<ControlLabel className="form-label">Age:</ControlLabel>
+							<FormControl
+								name="age"
+								type="number"
+								value={this.state.age}
+								onChange={this.handleInputChange} />
+							<br />
 
-					<label>Age:</label>
-					<input
-						name="age"
-						type="number"
-						value={this.state.age}
-						onChange={this.handleInputChange} />
-					<br />
+							<button onClick={this.handleClick}>Request the research data</button>
 
-					<button onClick={this.handleClick}>Request the research data</button>
-
-					<p>The consent has been provided by {this.state.numberOfConsents} participants.</p>
+							<p>The consent has been provided by {this.state.numberOfConsents} participants.</p>
+						</div>
+					</FormGroup>
 				</div>
 			</div>
 		);
